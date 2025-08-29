@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BookNest — Online Bookstore</title>
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#9aa4b2;
+      --accent:#7c3aed;
+      --accent-2:#06b6d4;
+      --glass: rgba(255,255,255,0.04);
+      --radius:12px;
+      --max-width:1200px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: linear-gradient(180deg,var(--bg),#071025 60%);
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:32px 16px;
+      display:flex;
+      justify-content:center;
+    }
+    .wrap{
+      width:100%;
+      max-width:var(--max-width);
+    }
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      margin-bottom:24px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;
+    }
+    .logo{
+      width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:flex;align-items:center;justify-content:center;font-weight:700;color:white;font-size:20px;box-shadow:0 6px 18px rgba(124,58,237,0.18);
+    }
+    h1{margin:0;font-size:18px}
+    .tag{color:var(--muted);font-size:13px}
+
+    .controls{
+      display:flex;gap:12px;align-items:center
+    }
+    .search{background:var(--glass);padding:8px 12px;border-radius:999px;display:flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,0.03)}
+    .search input{background:transparent;border:0;outline:0;color:inherit;font-size:14px;width:220px}
+    .btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));padding:8px 12px;border-radius:10px;border:0;color:white;font-weight:600;cursor:pointer}
+
+    .layout{
+      display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start
+    }
+
+    .catalog{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      padding:18px;border-radius:var(--radius);border:1px solid rgba(255,255,255,0.03);
+    }
+
+    .filters{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+    .chip{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:6px 10px;border-radius:999px;color:var(--muted);font-size:13px}
+
+    .grid{
+      display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px
+    }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);display:flex;flex-direction:column;gap:10px;transition:transform .18s ease,box-shadow .18s ease;
+    }
+    .card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(2,6,23,0.6)}
+    .cover{height:220px;border-radius:8px;display:block;background-size:cover;background-position:center;border:1px solid rgba(255,255,255,0.03)}
+    .meta{display:flex;flex-direction:column;gap:6px}
+    .title{font-size:15px;font-weight:700}
+    .author{font-size:13px;color:var(--muted)}
+    .price-row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+    .price{font-weight:700}
+    .add{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:6px 8px;border-radius:8px;color:var(--muted);font-weight:600;cursor:pointer}
+
+    /* Sidebar - cart */
+    aside{
+      position:sticky;top:32px;height:max-content;
+    }
+    .cart{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:16px;border-radius:var(--radius);border:1px solid rgba(255,255,255,0.03);
+      min-height:160px;display:flex;flex-direction:column;gap:12px
+    }
+    .cart h3{margin:0}
+    .line{display:flex;justify-content:space-between;color:var(--muted);font-size:14px}
+    .checkout{margin-top:8px}
+    .empty{color:var(--muted);font-size:13px}
+
+    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* Responsive */
+    @media (max-width:900px){
+      .layout{grid-template-columns:1fr}
+      aside{position:relative}
+      .search input{width:120px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">BN</div>
+        <div>
+          <h1>BookNest</h1>
+          <div class="tag">Find your next read — fiction, non-fiction, textbooks & more</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="search" role="search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></circle></svg>
+          <input placeholder="Search books, authors, ISBN..." />
+        </div>
+        <button class="btn">Sign in</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="catalog">
+        <div class="filters">
+          <div class="chip">All</div>
+          <div class="chip">Fiction</div>
+          <div class="chip">Non-fiction</div>
+          <div class="chip">Sci‑Fi</div>
+          <div class="chip">Textbooks</div>
+          <div class="chip">Bestsellers</div>
+        </div>
+
+        <div class="grid">
+          <!-- Book 1 -->
+          <article class="card">
+            <a class="cover" href="#" style="background-image:url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=800&q=60');"></a>
+            <div class="meta">
+              <div class="title">The Modern Mind</div>
+              <div class="author">by A. K. Sharma</div>
+              <div class="price-row">
+                <div class="price">₹399</div>
+                <button class="add">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Book 2 -->
+          <article class="card">
+            <a class="cover" href="#" style="background-image:url('https://images.unsplash.com/photo-1512820790803-83ca734da794?w=800&q=60');"></a>
+            <div class="meta">
+              <div class="title">Deep Learning: A Practical Approach</div>
+              <div class="author">by M. Iyer</div>
+              <div class="price-row">
+                <div class="price">₹649</div>
+                <button class="add">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Book 3 -->
+          <article class="card">
+            <a class="cover" href="#" style="background-image:url('https://images.unsplash.com/photo-1544937954-2e5f7d5f0e34?w=800&q=60');"></a>
+            <div class="meta">
+              <div class="title">Short Stories from Around the World</div>
+              <div class="author">Compiled by L. Fernandes</div>
+              <div class="price-row">
+                <div class="price">₹249</div>
+                <button class="add">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Book 4 -->
+          <article class="card">
+            <a class="cover" href="#" style="background-image:url('https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=800&q=60');"></a>
+            <div class="meta">
+              <div class="title">Intro to Algorithms (3rd Edition)</div>
+              <div class="author">T. H. Cormen</div>
+              <div class="price-row">
+                <div class="price">₹1299</div>
+                <button class="add">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Book 5 -->
+          <article class="card">
+            <a class="cover" href="#" style="background-image:url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=800&q=60');"></a>
+            <div class="meta">
+              <div class="title">Mindful Living</div>
+              <div class="author">S. Rao</div>
+              <div class="price-row">
+                <div class="price">₹299</div>
+                <button class="add">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Book 6 -->
+          <article class="card">
+            <a class="cover" href="#" style="background-image:url('https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&q=60');"></a>
+            <div class="meta">
+              <div class="title">A Pocket Guide to Chemistry</div>
+              <div class="author">R. Patel</div>
+              <div class="price-row">
+                <div class="price">₹199</div>
+                <button class="add">Add</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <aside>
+        <div class="cart">
+          <h3>Cart</h3>
+          <div class="empty">Your cart is empty. Add books to see them here.</div>
+          <div class="line"><span>Items</span><span>0</span></div>
+          <div class="line"><span>Subtotal</span><span>₹0</span></div>
+          <div class="checkout"><button class="btn" style="width:100%">Proceed to Checkout</button></div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      © <span id="year"></span> BookNest · Built with HTML & CSS
+    </footer>
+  </div>
+
+  <script>
+    // Small script to set the year (does not add site behavior beyond that)
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
